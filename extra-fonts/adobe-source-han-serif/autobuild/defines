@@ -1,5 +1,5 @@
 PKGNAME=adobe-source-han-serif
 PKGSEC=fonts
-PKGDEP="fontconfig"
+PKGDEP="source-han-super-otc"
 PKGDES="A set of Pan-CJK serif fonts"
 ABHOST=noarch

@@ -1,0 +1,6 @@
+install -m644 SourceHanNotoCJK.ttc ${PKGDIR}/usr/share/fonts/source-han-super-otc/
+install -m644 LICENSE.txt ${PKGDIR}/usr/share/licenses/source-han-super-otc/
+
+pushd ${PKGDIR}/usr/share/fonts/TTF/
+ln -s ../source-han-super-otc/SourceHanNotoCJK.ttc .
+popd

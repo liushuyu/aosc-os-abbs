@@ -1,6 +1,6 @@
 PKGNAME=adobe-source-han-sans
 PKGSEC=fonts
-PKGDEP="fontconfig"
+PKGDEP="source-han-super-otc"
 PKGDES="A set of Pan-CJK fonts designed to complement Source Sans Pro"
 
 PKGREP="adobe-source-hans-sans adobe-source-han-sans-cn adobe-source-han-sans-jp \

@@ -1,0 +1,7 @@
+PKGNAME=source-han-super-otc
+PKGSEC=fonts
+PKGDEP="fontconfig"
+PKGDES="Adobe Source Han Fonts Super OTC (Sans and Serif)"
+PKGREP="adobe-source-han-sans adobe-source-han-serif noto-cjk-fonts"
+PKGPROV="adobe-source-han-sans adobe-source-han-serif noto-cjk-fonts ttf-noto-cjk"
+ABHOST=noarch

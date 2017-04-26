@@ -1,0 +1,10 @@
+wget https://github.com/adobe-fonts/source-han-super-otc/raw/master/SourceHanNotoCJK.ttc.z01 \
+     https://github.com/adobe-fonts/source-han-super-otc/raw/master/SourceHanNotoCJK.ttc.z02 \
+     https://github.com/adobe-fonts/source-han-super-otc/raw/master/SourceHanNotoCJK.ttc.zip \
+     https://raw.githubusercontent.com/adobe-fonts/source-han-super-otc/master/LICENSE.txt
+
+cat SourceHanNotoCJK.ttc.z01 SourceHanNotoCJK.ttc.z02 SourceHanNotoCJK.ttc.zip \
+  | bsdtar xf -
+
+mkdir -p ${PKGDIR}/usr/share/{fonts,licenses}/source-han-super-otc/
+mkdir -p ${PKGDIR}/usr/share/fonts/TTF/

@@ -1,7 +1,7 @@
 PKGNAME=noto-cjk-fonts
 PKGEPOCH=1
 PKGSEC=fonts
-PKGDEP="fontconfig"
+PKGDEP="source-han-super-otc"
 PKGDES="A font family aiming to support all languages with a harmonious look (Pan-CJK fonts)"
 
 PKGREP="fonts-noto-cjk fonts-noto"
