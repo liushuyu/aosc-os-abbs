@@ -1,3 +1,4 @@
 VER=53
+REL=1
 GITSRC="git://code.qt.io/qt/qtchooser.git"
 GITCO="d20fdc63"

@@ -1,3 +1,4 @@
 VER=20170225
+REL=1
 GITSRC="https://github.com/AOSC-Dev/AOSC_Default_Settings"
 GITBRCH="i3wm"

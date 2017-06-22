@@ -1,4 +1,5 @@
 TAG=1.0.0
 VER=5really${TAG}
+REL=1
 SRCTBL="https://github.com/rpm-software-management/dnf/archive/dnf-${TAG}-1.tar.gz"
 SUBDIR="dnf-dnf-${TAG}-1"

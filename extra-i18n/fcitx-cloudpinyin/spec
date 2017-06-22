@@ -1,3 +1,4 @@
 VER=20170309
+REL=1
 GITSRC="https://github.com/fcitx/fcitx-cloudpinyin"
 GITCO="6b4a252e76a93e9c5ebbdeae5c56507511250bd9"

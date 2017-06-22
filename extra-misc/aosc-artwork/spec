@@ -1,3 +1,4 @@
 VER=3git20150123
+REL=1
 GITSRC="https://github.com/AOSC-Dev/AOSC-Artwork"
 SUBDIR="AOSC-Artwork"
