@@ -20,14 +20,9 @@ done
 }
 
 ##### Control part variables
-if [[ "${CROSS:-$ARCH}" != armel ]]; then
-    UPDATE=121
-else
-    UPDATE=112
-fi
 SJAVAC=1
 [ "${CROSS:-$ARCH}" = "amd64" ] && export JARCH="x86_64" CONFARCH="amd64"
-[ "${CROSS:-$ARCH}" = "armel" ] && export JARCH="aarch32" CONFARCH="aarch32"
+[ "${CROSS:-$ARCH}" = "armel" ] && export JARCH="arm" CONFARCH="arm"
 [ "${CROSS:-$ARCH}" = "arm64" ] && export JARCH="aarch64" CONFARCH="aarch64"
 [ "${CROSS:-$ARCH}" = "mipsel" ] && export JARCH="mipsel" CONFARCH="mipsel"
 [ "${CROSS:-$ARCH}" = "powerpc" ] && export JARCH="ppc" CONFARCH="ppc"
@@ -39,26 +34,16 @@ else
     config_zero="--disable-precompiled-headers"
 fi
 
-if [[ "${CROSS:-$ARCH}" = armel ]]; then
-    config_zero="--with-jvm-variants=client"
-fi
-
 if [[ "${SJAVAC}" == "1" ]]; then
-    use_sjavac="--enable-sjavac" # Just a simple switch. And sjavac.jar is not needed, since JDK 8 has built-in a similar routine 
+    use_sjavac="--enable-sjavac --disable-javac-server"
 fi
 
 if [[ "${CROSS:-$ARCH}" = armel ]]; then
-    config_bits="--host=armv7a-hardfloat-linux-gnueabi --build=armv7a-hardfloat-linux-gnueabi"
+    config_bits="--with-target-bits=32 --with-abi-profile=arm-vfp-hflt"
 fi
 
-if [[ "${CROSS:-$ARCH}" != arm* ]]; then
-    BUILD=13
-else
-    if [[ "${CROSS:-$ARCH}" = armel ]]; then
-        BUILD=16
-    elif [[ "${CROSS:-$ARCH}" = arm64 ]]; then
-        BUILD=16
-    fi
+if [[ "${CROSS:-$ARCH}" = arm64 ]]; then
+    config_bits="--with-target-bits=64 --with-abi-profile=aarch64 --with-cpu-port=aarch64"
 fi
 
 unset JAVA_HOME
@@ -67,9 +52,11 @@ unset _JAVA_OPTIONS
 install -d -m 755 "$SRCDIR"/image
 sh configure \
     --prefix="$SRCDIR"/image \
-    --with-update-version=${UPDATE} \
-    --with-build-number=${BUILD} \
-    --with-milestone="AOSC" \
+    --with-version-major=1 \
+    --with-version-minor=9 \
+    --with-version-security=0 \
+    --with-version-build=${BUILD} \
+    --with-version-opt="AOSC" \
     --with-num-cores=$(nproc) \
     --enable-unlimited-crypto \
     --with-zlib=system \
@@ -80,18 +67,16 @@ sh configure \
     --with-extra-cflags="${EXTRA_CFLAGS}" \
     --with-extra-ldflags="${LDFLAGS}" \
     CC=gcc CXX=g++
+    
+SHORT_VERSION="$(awk '/VERSION_SHORT\s?:=\s?(.*)/ { print $3 }' build/linux-${JARCH}-normal-server-release/spec.gmk)"
 
 # FIXME: use system giflibwhen possible
 
-make DEBUG_BINARIES=true                 \
-     DISABLE_HOTSPOT_OS_VERSION_CHECK=ok \
-     SCTP_WERROR= \
-     all
-make docs
+make all
 
 make install
 
-pushd image/jvm/openjdk-1.8.0_${UPDATE}-AOSC
+pushd image/jvm/"openjdk-${SHORT_VERSION}"
 find . -iname '*.jar' -exec chmod ugo+r {} \;
 chmod ugo+r lib/ct.sym
 
@@ -100,7 +85,7 @@ find . -iname '*.debuginfo' -exec rm {} \;
 popd
 
 mkdir -p "$PKGDIR"/usr/lib/java
-cp -r image/jvm/openjdk-1.8.0_${UPDATE}-AOSC/* "$PKGDIR"/usr/lib/java/
+cp -r image/jvm/"openjdk-${SHORT_VERSION}"/* "$PKGDIR"/usr/lib/java/
 
 mv "$PKGDIR"/usr/lib/java/jre/lib/management/jmxremote.password{.template,}
 mv "$PKGDIR"/usr/lib/java/jre/lib/management/snmp.acl{.template,}
@@ -127,7 +112,7 @@ for i in ${CONFARCH}/jvm.cfg \
 done
 
 mkdir -p "$PKGDIR"/usr/src/openjdk
-install -D image/jvm/openjdk-1.8.0_${UPDATE}-AOSC/src.zip "$PKGDIR"/usr/src/openjdk/src.zip
+install -D image/jvm/"openjdk-${SHORT_VERSION}"/src.zip "$PKGDIR"/usr/src/openjdk/src.zip
 ln -sv /usr/src/openjdk/src.zip "$PKGDIR"/usr/lib/java/src.zip
 
 install -d -m 755 "$PKGDIR"/usr/share/doc/openjdk
@@ -160,7 +145,7 @@ popd
 popd
 
 mkdir -p "$PKGDIR"/etc/ssl/certs/java
-cp image/jvm/openjdk-1.8.0_${UPDATE}-AOSC/jre/lib/security/cacerts "$PKGDIR"/etc/ssl/certs/java/
+cp image/jvm/"openjdk-${SHORT_VERSION}"/jre/lib/security/cacerts "$PKGDIR"/etc/ssl/certs/java/
 
 rm -fv "$PKGDIR"/usr/lib/java/lib/security/cacerts
 ln -sfv /etc/ssl/certs/java/cacerts "$PKGDIR"/usr/lib/java/lib/security/cacerts

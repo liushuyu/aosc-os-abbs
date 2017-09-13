@@ -1,7 +1,7 @@
 export EXTRA_CFLAGS="${CPPFLAGS} ${CFLAGS} -std=c++98 -Wno-error -fno-delete-null-pointer-checks \
-                     -fno-lifetime-dse"
+                     -fno-lifetime-dse -Wno-deprecated-declarations"
 export EXTRA_CPP_FLAGS="${CPPFLAGS} ${CXXFLAGS} -std=c++98 -Wno-error -fno-delete-null-pointer-checks \
-                        -fno-lifetime-dse -fpermissive"
+                        -fno-lifetime-dse -fpermissive -Wno-deprecated-declarations"
 
 cd "$SRCDIR"/common/autoconf
 autoconf

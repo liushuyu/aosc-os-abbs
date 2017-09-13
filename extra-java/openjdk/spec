@@ -1,19 +1,2 @@
-if [[ "${CROSS:-$ARCH}" != arm* ]]; then
-	VER=8u121b13
-else
-	if [[ "${CROSS:-$ARCH}" = armel ]]; then
-		VER=8u112b16
-	elif [[ "${CROSS:-$ARCH}" = arm64 ]]; then
-		VER=8u112b16
-	fi
-fi
-
-REL=1
-
-if [[ "${CROSS:-$ARCH}" = "arm64" ]]; then
-	SRCTBL="https://repo.aosc.io/aosc-repacks/aarch64-java/openjdk-$VER.tar.xz"
-elif [[ "${CROSS:-$ARCH}" = "armel" ]]; then
-	SRCTBL="https://repo.aosc.io/aosc-repacks/aarch32-java/openjdk-$VER.tar.xz"
-else
-	SRCTBL="https://repo.aosc.io/aosc-repacks/openjdk-$VER.tar.xz"
-fi
+VER=9+181
+SRCTBL="https://repo.aosc.io/aosc-repacks/openjdk-$VER.tar.xz"

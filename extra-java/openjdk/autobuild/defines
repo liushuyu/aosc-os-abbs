@@ -8,7 +8,7 @@ if [[ "${CROSS:-$ARCH}" != arm* && "${CROSS:-$ARCH}" != ppc64 && "${CROSS:-$ARCH
 fi
 PKGDES="OpenJDK Java Runtime Environment (JRE), Java Development Environment (JDK), and IcedTea-Web"
 
-PKGPROV="icedtea icedtea-web jre-openjdk jre8-openjdk openjdk8"
+PKGPROV="icedtea icedtea-web jre-openjdk jre9-openjdk openjdk9"
 NOPARALLEL=yes
 PKGEPOCH=2
 
