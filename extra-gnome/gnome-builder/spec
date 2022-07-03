@@ -1,4 +1,4 @@
-VER=41.3
+VER=42.1
 SRCS="https://download.gnome.org/sources/gnome-builder/${VER%.*}/gnome-builder-$VER.tar.xz"
 CHKSUMS="sha256::e2250fc8e9e9f2002c452e5950d82685734d3c4480b35167ab508ac8702509e1"
 CHKUPDATE="anitya::id=5574"
