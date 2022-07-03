@@ -1,4 +1,4 @@
-VER=1.8+git20220513
-SRCS="git::commit=72b4fe46b14286364ff7a212242c1fd1a69c5663::https://github.com/pocl/pocl"
-CHKSUMS="SKIP"
+VER=3.0
+SRCS="tbl::https://github.com/pocl/pocl/archive/refs/tags/v$VER.tar.gz"
+CHKSUMS="sha256::a3fd3889ef7854b90b8e4c7899c5de48b7494bf770e39fba5ad268a5cbcc719d"
 CHKUPDATE="anitya::id=3676"
