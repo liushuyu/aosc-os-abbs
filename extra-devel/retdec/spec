@@ -1,5 +1,4 @@
-VER=4.0+git20200125
-REL=1
-SRCS="git::commit=6ed327e30fd2bbd45767ff45eae7cfd63fdfc2f1::https://github.com/avast-tl/retdec.git"
+VER=4.0+git20220725
+SRCS="git::commit=0749a46b2490c8d499d64f08629271e16c311d82::https://github.com/avast-tl/retdec.git"
 CHKSUMS="SKIP"
 CHKUPDATE="anitya::id=227265"
