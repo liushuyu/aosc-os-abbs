@@ -1,0 +1,28 @@
+name: Build packages
+
+on:
+  pull_request:
+    paths:
+    - "topics/*.toml"
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install npm dependencies
+      run: npm install toml @cfworker/json-schema
+    - name: Generate manifests
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const {generateTopicUpdateData} = await import('${{ github.workspace }}/.github/workflows/tum-process.js');
+          const topic = context.ref?.replace('refs/heads/', '');
+          generateTopicUpdateData(require, topic, '/tmp/dists/');
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: manifests
+        path: /tmp/dists/
